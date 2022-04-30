@@ -21,35 +21,35 @@ public class ActionManager
     //variables
     Dictionary<string, Actions> allActions = new Dictionary<string, Actions>();
 
-    public void addAction(string key, Action action)
+    public void AddAction(string key, Action action)
     {
         try{
-            allActions[key].addAction(action);
+            allActions[key].AddAction(action);
         }
         catch (KeyNotFoundException){
             allActions[key] = new Actions();
-            addAction(key, action);
+            AddAction(key, action);
         }
         catch (Exception e) {
             Debug.LogWarning("Exeption " + e + " thrown when addAction(" + key + ", " + action + ") was called!");
         }
     }
 
-    public void runActions(string key) {
+    public void RunActions(string key) {
         try
         {
-            allActions[key].runAll();
+            allActions[key].RunAll();
         }
         catch (Exception e){
             Debug.LogWarning("Exeption " + e + " thrown when runActions(" + key + ") was called!");
         }
     }
 
-    public void clearActions(string key)
+    public void ClearActions(string key)
     {
         try
         {
-            allActions[key].clearAll();
+            allActions[key].ClearAll();
         }
         catch (Exception e)
         {
@@ -62,18 +62,18 @@ public class Actions
 {
     private LinkedList<Action> actions = new LinkedList<Action>();
 
-    public void addAction(Action action)
+    public void AddAction(Action action)
     {
         //WARNING unprotected input!!
         actions.AddLast(action);
     }
 
-    public void clearAll()
+    public void ClearAll()
     {
         actions.Clear();
     }
 
-    public void runAll()
+    public void RunAll()
     {
         foreach (Action action in actions)
             action();

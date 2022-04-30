@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
     void SetRun() {
         if (Input.GetButtonDown("Run")) {
-            controller.setRunning(true, true);
+            controller.SetRunning(true, true);
         }
         if (Input.GetButton("Run")) { 
             timeSinceLastRun = 0;
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 runTimeLeft -= Time.deltaTime;
                 if (runTimeLeft <= 0) {
-                    controller.setRunning(false, true);
+                    controller.SetRunning(false, true);
                     runTimeLeft = 0;
                 }
             }
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetButtonUp("Run"))
         {
-            controller.setRunning(false, true);
+            controller.SetRunning(false, true);
         }
 
             timeSinceLastRun += Time.deltaTime;
@@ -110,38 +110,38 @@ public class PlayerMovement : MonoBehaviour
 
     void SetCrouch() {
         if (Input.GetButtonDown("Crouch"))
-            controller.setCrouching(true, true);
+            controller.SetCrouching(true, true);
         else if (Input.GetButtonUp("Crouch"))
-            controller.setCrouching(false, false);
+            controller.SetCrouching(false, false);
     }
 
     void DefineActions() {
-        controller.getActionManager().addAction(ActionManager.k_OnRun, () => {
+        controller.GetActionManager().AddAction(ActionManager.k_OnRun, () => {
             movementSpeedMultiplier *= runSpeedMultiplier;
             movementForceMultiplier *= runForceMultiplier;
         });
-        controller.getActionManager().addAction(ActionManager.k_OnUnrun, () => {
+        controller.GetActionManager().AddAction(ActionManager.k_OnUnrun, () => {
             movementSpeedMultiplier /= runSpeedMultiplier;
             movementForceMultiplier /= runForceMultiplier;
         });
-        controller.getActionManager().addAction(ActionManager.k_OnCrouch, () => { 
+        controller.GetActionManager().AddAction(ActionManager.k_OnCrouch, () => { 
             movementSpeedMultiplier *= crouchSpeedMultiplier;
             movementForceMultiplier *= crouchForceMultiplier;
         });
-        controller.getActionManager().addAction(ActionManager.k_OnUncrouch, () => {
+        controller.GetActionManager().AddAction(ActionManager.k_OnUncrouch, () => {
             movementSpeedMultiplier /= crouchSpeedMultiplier;
             movementForceMultiplier /= crouchForceMultiplier;
         });
-        controller.getActionManager().addAction(ActionManager.k_OnScoping, () => {
+        controller.GetActionManager().AddAction(ActionManager.k_OnScoping, () => {
             movementSpeedMultiplier *= scopingSpeedMultiplier;
             movementForceMultiplier *= scopingForceMultiplier;
         });
-        controller.getActionManager().addAction(ActionManager.k_OnUnscoping, () => { 
+        controller.GetActionManager().AddAction(ActionManager.k_OnUnscoping, () => { 
             movementSpeedMultiplier /= scopingSpeedMultiplier;
             movementForceMultiplier /= scopingForceMultiplier;
         });
 
-        GameController.getActionManager().addAction(ActionManager.k_WhileGameActive, () =>
+        GameController.GetActionManager().AddAction(ActionManager.k_WhileGameActive, () =>
         {
             Run();
         });

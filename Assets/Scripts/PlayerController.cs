@@ -16,78 +16,78 @@ public class PlayerController : MonoBehaviour
 
     //---------getter and setter---------//
     //run
-    public void setRunning(bool val, bool overwrite) {
+    public void SetRunning(bool val, bool overwrite) {
         if (val == running) return; //why are you calling this method??
 
         if (val)
         {
-            if (isCrouching() || isScoping()) {
+            if (IsCrouching() || IsScoping()) {
                 if (overwrite)
                 {
-                    setCrouching(false, false);
-                    setScoping(false, false);
+                    SetCrouching(false, false);
+                    SetScoping(false, false);
                 }
                 else return;
             }
-            actionManager.runActions(ActionManager.k_OnRun);
+            actionManager.RunActions(ActionManager.k_OnRun);
         }
         else
-            actionManager.runActions(ActionManager.k_OnUnrun);
+            actionManager.RunActions(ActionManager.k_OnUnrun);
         running = val;
     }
-    public bool isRunning() {
+    public bool IsRunning() {
         return running;
     }
     
     //crouch
-    public void setCrouching(bool val, bool overwrite){
+    public void SetCrouching(bool val, bool overwrite){
         if (val == crouching) return; //why are you calling this method??
 
         if (val)
         {
-            if (isRunning()) {
+            if (IsRunning()) {
                 if (overwrite)
-                    setRunning(false, false);
+                    SetRunning(false, false);
                 else return;
             }
-            actionManager.runActions(ActionManager.k_OnCrouch);
+            actionManager.RunActions(ActionManager.k_OnCrouch);
         }
         else
-            actionManager.runActions(ActionManager.k_OnUncrouch);
+            actionManager.RunActions(ActionManager.k_OnUncrouch);
         crouching = val;
     }
-    public bool isCrouching() { 
+    public bool IsCrouching() { 
         return crouching;
     }
 
     //scope
-    public void setScoping(bool val, bool overwrite) {
+    public void SetScoping(bool val, bool overwrite) {
         if(val == scoping) return; //why are you calling this method??
 
         if (val)
         {
-            if (isRunning())
+            if (IsRunning())
             {
                 if (overwrite)
-                    setRunning(false, false);
+                    SetRunning(false, false);
                 else return;
             }
-            actionManager.runActions(ActionManager.k_OnScoping);
+            actionManager.RunActions(ActionManager.k_OnScoping);
         }
         else
-            actionManager.runActions(ActionManager.k_OnUnscoping);
+            actionManager.RunActions(ActionManager.k_OnUnscoping);
         scoping = val;
     }
-    public bool isScoping() { 
+    public bool IsScoping() { 
         return scoping;
     }
 
     //action manager
-    public ActionManager getActionManager() {
+    public ActionManager GetActionManager() {
         return actionManager;
     }
 
-    public Transform getPlayerTransform() { 
+    public Transform GetPlayerTransform() { 
         return playerTransform;
     }
 

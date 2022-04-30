@@ -1,44 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
     //general
     private static ActionManager actionManager = new ActionManager();
     private static bool gameActive;
 
-    public static void activeGame()
+    public static void ActiveGame()
     {
-        actionManager.runActions(ActionManager.k_OnGameActivate);
+        actionManager.RunActions(ActionManager.k_OnGameActivate);
         gameActive = true;
     }
 
-    public static void deactivateGame()
+    public static void DeactivateGame()
     {
-        actionManager.runActions(ActionManager.k_OnGameDeactivate);
+        actionManager.RunActions(ActionManager.k_OnGameDeactivate);
         gameActive = false;
     }
 
-    public static ActionManager getActionManager() { 
+    public static ActionManager GetActionManager()
+    {
         return actionManager;
     }
 
-    public static bool isGameActive() { 
+    public static bool IsGameActive()
+    {
         return gameActive;
     }
 
     void Start()
     {
-        actionManager.runActions(ActionManager.k_OnStart);    
+        actionManager.RunActions(ActionManager.k_OnStart);
     }
 
     void Update()
     {
-        actionManager.runActions(ActionManager.k_OnUpdate);
-        
+        actionManager.RunActions(ActionManager.k_OnUpdate);
+
         if (gameActive)
-            actionManager.runActions(ActionManager.k_WhileGameActive);
+            actionManager.RunActions(ActionManager.k_WhileGameActive);
         else
-            actionManager.runActions(ActionManager.k_WhileGameDeactive);
+            actionManager.RunActions(ActionManager.k_WhileGameDeactive);
     }
 }
