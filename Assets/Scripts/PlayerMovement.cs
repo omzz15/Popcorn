@@ -96,8 +96,12 @@ public class PlayerMovement : MonoBehaviour
             }
             return;
         }
+        if (Input.GetButtonUp("Run"))
+        {
+            controller.setRunning(false, true);
+        }
 
-        timeSinceLastRun += Time.deltaTime;
+            timeSinceLastRun += Time.deltaTime;
 
         if (timeSinceLastRun >= waitTimeBeforeRunFills && runTimeLeft < timeTillRunEmpty) { 
             runTimeLeft += (timeTillRunEmpty/timeTillRunFull) * Time.deltaTime;

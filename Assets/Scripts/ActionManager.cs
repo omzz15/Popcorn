@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActionManager
 {
-    //common actions
+    //common actions    
     public static readonly string k_OnRun = "on run";
     public static readonly string k_OnUnrun = "on unrun";
     public static readonly string k_OnCrouch = "on crouch";
