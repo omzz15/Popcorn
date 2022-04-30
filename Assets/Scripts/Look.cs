@@ -4,59 +4,60 @@ using UnityEngine;
 
 public class Look : MonoBehaviour
 {
+    public PlayerController controller;
+
     public float mouseSensitivity = 100f;
     public float MaxAngle = 45f;
     public float minAngle = -45f;
     public Transform playerBody;
-    public Transform playerHead;
     public float baseFOV;
 
     float xRotation = 0f;
-    bool unlocked = false;
 
     void Awake()
     {
-        if (Time.timeScale > 0)
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-    }
-
-    void Start()
-    {
+        defineActions();
         gameObject.GetComponent<Camera>().fieldOfView = baseFOV;
     }
 
-    void Update()
+    void run()
     {
-        if (unlocked)
-        {
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, minAngle, MaxAngle);
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, minAngle, MaxAngle);
 
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-            playerBody.Rotate(Vector3.up * mouseX);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerBody.Rotate(Vector3.up * mouseX);
+    }
 
+    void lockCursor() {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
-        }
+    void unlockCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
-        if ()) 
-        {
-            if (unlocked)
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            else
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
-            unlocked = !unlocked;
-        }
+    void defineActions() {
+        GameController.getActionManager().addAction(ActionManager.k_OnGameActivate, () => { 
+            lockCursor(); 
+        });
+        GameController.getActionManager().addAction(ActionManager.k_OnGameDeactivate, () => {
+            unlockCursor();
+        });
+        GameController.getActionManager().addAction(ActionManager.k_WhileGameActive, () => {
+            if (Input.GetButton("Cancel"))
+                GameController.deactivateGame();
+            run();
+        });
+        GameController.getActionManager().addAction(ActionManager.k_WhileGameDeactive, () =>{
+            if (Input.GetMouseButton(0))
+                GameController.activeGame();
+        });
     }
 }
