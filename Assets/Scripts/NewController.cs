@@ -1,8 +1,9 @@
+using System.Transactions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControllerChicken : MonoBehaviour
+public class NewController : MonoBehaviour
 {
     private CharacterController controller;
 
@@ -40,7 +41,7 @@ public class PlayerControllerChicken : MonoBehaviour
         }
 
         //Player Movement
-        Vector3 move = Input.GetAxis("Vertical") *transform.forward;
+        Vector3 move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
 
 
         if (!Physics.Raycast(feet.position, Vector3.down, 0.3f, ground)){

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    /**
     public PlayerController controller;
 
     [Space]
@@ -49,14 +50,14 @@ public class PlayerMovement : MonoBehaviour
     {
         runTimeLeft = timeTillRunEmpty;
         rb = GetComponent<Rigidbody>();
-        DefineActions();
+        defineActions();
     }
 
     // Update is called once per frame
     void Run()
     {
         Move();
-        SetCrouch();
+        setCrouch();
         SetRun();
     }
 
@@ -96,26 +97,22 @@ public class PlayerMovement : MonoBehaviour
             }
             return;
         }
-        if (Input.GetButtonUp("Run"))
-        {
-            controller.setRunning(false, true);
-        }
 
-            timeSinceLastRun += Time.deltaTime;
+        timeSinceLastRun += Time.deltaTime;
 
         if (timeSinceLastRun >= waitTimeBeforeRunFills && runTimeLeft < timeTillRunEmpty) { 
             runTimeLeft += (timeTillRunEmpty/timeTillRunFull) * Time.deltaTime;
         }
     }
 
-    void SetCrouch() {
+    void setCrouch() {
         if (Input.GetButtonDown("Crouch"))
             controller.setCrouching(true, true);
         else if (Input.GetButtonUp("Crouch"))
             controller.setCrouching(false, false);
     }
 
-    void DefineActions() {
+    void defineActions() {
         controller.getActionManager().addAction(ActionManager.k_OnRun, () => {
             movementSpeedMultiplier *= runSpeedMultiplier;
             movementForceMultiplier *= runForceMultiplier;
@@ -146,4 +143,5 @@ public class PlayerMovement : MonoBehaviour
             Run();
         });
     }
+    **/
 }

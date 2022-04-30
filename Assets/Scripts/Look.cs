@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Look : MonoBehaviour
 {
-    public PlayerController controller;
-
     public float mouseSensitivity = 100f;
     public float MaxAngle = 45f;
     public float minAngle = -45f;

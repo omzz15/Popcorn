@@ -358,7 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e0310177ebf7f4b934b48b84150a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
   mouseSensitivity: 1000
   MaxAngle: 45
   minAngle: -45
@@ -377,8 +376,7 @@ GameObject:
   - component: {fileID: 1166155140}
   - component: {fileID: 1166155139}
   - component: {fileID: 1166155143}
-  - component: {fileID: 1166155138}
-  - component: {fileID: 1166155137}
+  - component: {fileID: 1166155144}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -386,48 +384,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!54 &1166155137
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166155136}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 0.1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
---- !u!114 &1166155138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166155136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3c5349d02b01d4987f7ac7c48400a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1166155143}
-  baseForwardSpeed: 1
-  baseBackwardSpeed: 1
-  baseSideSpeed: 1
-  baseForce: 3
-  runSpeedMultiplier: 10
-  runForceMultiplier: 10
-  waitTimeBeforeRunFills: 5
-  timeTillRunEmpty: 2
-  timeTillRunFull: 10
-  crouchSpeedMultiplier: 0.5
-  crouchForceMultiplier: 2
-  scopingSpeedMultiplier: 2
-  scopingForceMultiplier: 2
 --- !u!136 &1166155139
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -500,7 +456,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166155136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8208537, y: 4.98, z: -0.8216419}
+  m_LocalPosition: {x: -1.8208537, y: 6.99, z: -0.8216419}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -517,9 +473,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166155136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde27989bfa2a7640a74a7d31da6eb0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b09ed5f230b614e9b43206e4a6775a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnAngle: 25
+  gravity: -9.8
+  jumpStrength: 17
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  feet: {fileID: 1166155142}
+  playerSpeed: 4
+  rotSpeed: 0.3
+--- !u!143 &1166155144
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166155136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &360576313307546721
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -638,6 +621,7 @@ GameObject:
   - component: {fileID: 1194288625246227930}
   - component: {fileID: 4560729717516600205}
   - component: {fileID: 6824616994358431725}
+  - component: {fileID: 6824616994358431726}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -1551,6 +1535,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6824616994358431726
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522520644398563185}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2441658414131813105, guid: b544bb44314fc8340ae22227860225c9, type: 3}
 --- !u!1 &7018387895987539808
 GameObject:
   m_ObjectHideFlags: 0
