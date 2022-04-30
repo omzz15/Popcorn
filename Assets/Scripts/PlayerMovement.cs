@@ -44,22 +44,23 @@ public class PlayerMovement : MonoBehaviour
     float timeSinceLastRun;
 
 
+
     public void Awake()
     {
         runTimeLeft = timeTillRunEmpty;
         rb = GetComponent<Rigidbody>();
-        defineActions();
+        DefineActions();
     }
 
     // Update is called once per frame
-    void run()
+    void Run()
     {
-        move();
-        setCrouch();
-        setRun();
+        Move();
+        SetCrouch();
+        SetRun();
     }
 
-    void move()
+    void Move()
     {
         float xForce = Input.GetAxis("Horizontal") * movementForceMultiplier * baseForce;
         float yForce = Input.GetAxis("Vertical") * movementForceMultiplier * baseForce;
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void setRun() {
+    void SetRun() {
         if (Input.GetButtonDown("Run")) {
             controller.setRunning(true, true);
         }
@@ -103,14 +104,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void setCrouch() {
+    void SetCrouch() {
         if (Input.GetButtonDown("Crouch"))
             controller.setCrouching(true, true);
         else if (Input.GetButtonUp("Crouch"))
             controller.setCrouching(false, false);
     }
 
-    void defineActions() {
+    void DefineActions() {
         controller.getActionManager().addAction(ActionManager.k_OnRun, () => {
             movementSpeedMultiplier *= runSpeedMultiplier;
             movementForceMultiplier *= runForceMultiplier;
@@ -138,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
 
         GameController.getActionManager().addAction(ActionManager.k_WhileGameActive, () =>
         {
-            run();
+            Run();
         });
     }
 }
