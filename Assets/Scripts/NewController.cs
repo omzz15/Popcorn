@@ -7,14 +7,14 @@ public class NewController : MonoBehaviour
 {
     private CharacterController controller;
 
-    [SerializeField] private int turnAngle = 25;
     [SerializeField] private float gravity = -9.8f;
-    [SerializeField] private float jumpStrength = 17f;
     [SerializeField] private LayerMask ground;
     [SerializeField] private Transform feet;
+    [SerializeField] private Transform head;
+    [SerializeField] private Transform[] headPositions;
     public float playerSpeed = 4f;
     public float rotSpeed = 0.3f;
-    private int sprint;
+    private float sprint;
 
     Vector3 velocity = Vector3.zero;
     void Start()
@@ -33,11 +33,20 @@ public class NewController : MonoBehaviour
 
         //Is sprinting?
         if (Input.GetKey(KeyCode.LeftShift)){
-            sprint = 3;
+            sprint = 2;
         }
         else 
         {
             sprint = 1;
+        }
+        //Is Crouching?
+        if (Input.GetKey(KeyCode.LeftControl)){
+            head.position = headPositions[1].position;
+            sprint = 0.5f;
+        }
+        else 
+        {
+            head.position = headPositions[0].position;
         }
 
         //Player Movement
