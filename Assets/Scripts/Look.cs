@@ -16,11 +16,11 @@ public class Look : MonoBehaviour
 
     void Awake()
     {
-        defineActions();
+        DefineActions();
         gameObject.GetComponent<Camera>().fieldOfView = baseFOV;
     }
 
-    void run()
+    void Run()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -32,32 +32,32 @@ public class Look : MonoBehaviour
         playerBody.Rotate(Vector3.up * mouseX);
     }
 
-    void lockCursor() {
+    void LockCursor() {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void unlockCursor()
+    void UnlockCursor()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
-    void defineActions() {
-        GameController.getActionManager().addAction(ActionManager.k_OnGameActivate, () => { 
-            lockCursor(); 
+    void DefineActions() {
+        GameController.GetActionManager().AddAction(ActionManager.k_OnGameActivate, () => { 
+            LockCursor(); 
         });
-        GameController.getActionManager().addAction(ActionManager.k_OnGameDeactivate, () => {
-            unlockCursor();
+        GameController.GetActionManager().AddAction(ActionManager.k_OnGameDeactivate, () => {
+            UnlockCursor();
         });
-        GameController.getActionManager().addAction(ActionManager.k_WhileGameActive, () => {
+        GameController.GetActionManager().AddAction(ActionManager.k_WhileGameActive, () => {
             if (Input.GetButton("Cancel"))
-                GameController.deactivateGame();
-            run();
+                GameController.DeactivateGame();
+            Run();
         });
-        GameController.getActionManager().addAction(ActionManager.k_WhileGameDeactive, () =>{
+        GameController.GetActionManager().AddAction(ActionManager.k_WhileGameDeactive, () =>{
             if (Input.GetMouseButton(0))
-                GameController.activeGame();
+                GameController.ActiveGame();
         });
     }
 }
