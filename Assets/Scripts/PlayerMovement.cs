@@ -44,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
     float timeSinceLastRun;
 
 
-
     public void Awake()
     {
         runTimeLeft = timeTillRunEmpty;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private ActionManager actionManager = new ActionManager();
+    private Transform playerTransform;
     //movement
     private bool running;
     private bool crouching;
@@ -86,5 +87,13 @@ public class PlayerController : MonoBehaviour
         return actionManager;
     }
 
+    public Transform getPlayerTransform() { 
+        return playerTransform;
+    }
+
+    void Awake()
+    {
+        playerTransform = transform;
+    }
     //TODO add update and start with actionManager calls
 }
