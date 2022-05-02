@@ -319,7 +319,7 @@ MonoBehaviour:
   baseHealthSlider: {fileID: 1097552906}
   regenRate: 1
   maxPlayerHealth: 100
-  maxBaseHealth: 500
+  maxBaseHealth: 200
 --- !u!1 &203694187
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +640,7 @@ MonoBehaviour:
   health: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 128
   speed: 2
   agrowRange: 10
   attackRange: 2
@@ -1699,7 +1699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 513438258036500955, guid: 598bd2b2669e99f49951f27c261a2312, type: 3}
       propertyPath: m_Name
-      value: TempBaseCore
+      value: Base
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 598bd2b2669e99f49951f27c261a2312, type: 3}
