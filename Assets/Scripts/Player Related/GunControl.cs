@@ -23,7 +23,7 @@ public class GunControl : MonoBehaviour
 
                 if (hit.transform.gameObject.tag == "enemy") {
 
-                    //Deal Damage to enemy but we need enemies first
+                    hit.transform.gameObject.GetComponent<BasicEnemy>().TakeDamage(10);
 
                 }
 

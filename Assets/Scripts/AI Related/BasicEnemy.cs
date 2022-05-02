@@ -6,20 +6,24 @@ using UnityEngine.AI;
 public class BasicEnemy : MonoBehaviour
 {
     
-    [SerializeField] private float health;
+    public float health =10;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float speed;
     [SerializeField] private float agrowRange = 10;
     [SerializeField] private float attackRange = 1;
+    [SerializeField] private GameObject particleSystem;
     private NavMeshAgent navMeshAgent;
     private Transform player;
     private Transform baseCore;
+    private HealthManager healthManager;
     private RaycastHit hit;
+    private float attackCooldown;
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         baseCore = GameObject.FindWithTag("baseCore").GetComponent<Transform>();
+        healthManager = GameObject.FindWithTag("GameManager").GetComponent<Transform>().GetComponent<HealthManager>();
         navMeshAgent.speed = speed;
     }
     void Update()
@@ -42,11 +46,29 @@ public class BasicEnemy : MonoBehaviour
         //Attack Regardless of whatis there
         if (playerDist < attackRange || baseCoreDist < attackRange){
 
-            if (Physics.BoxCast(transform.position, transform.localScale , transform.forward, out hit, transform.rotation,  attackRange, layerMask)){
+            navMeshAgent.SetDestination(transform.position);
 
-                //hit.transform.gameObject.
+            if (attackCooldown > 1 && Physics.Raycast(transform.position, transform.forward, out hit,  attackRange*2, layerMask)){
+
+                attackCooldown = 0;
+                healthManager.DamagePlayer(10);
 
             }
+
+        }
+
+        attackCooldown += 3 * Time.deltaTime;
+
+    }
+
+    public void TakeDamage (float damage){
+
+        health -= damage;
+
+        if (health <= 0){
+
+            Instantiate(particleSystem, transform.position, Quaternion.identity);
+            Destroy(gameObject);
 
         }
 
