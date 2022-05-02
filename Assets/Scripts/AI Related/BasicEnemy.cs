@@ -48,10 +48,11 @@ public class BasicEnemy : MonoBehaviour
 
             navMeshAgent.SetDestination(transform.position);
 
-            if (attackCooldown > 1 && Physics.Raycast(transform.position, transform.forward, out hit,  attackRange*2, layerMask)){
+            Debug.DrawRay(transform.position+ Vector3.up*1.5f, transform.forward);
+            if (attackCooldown > 1 && Physics.Raycast(transform.position + Vector3.up*1.5f, transform.forward, out hit,  attackRange*2, layerMask)){
 
                 attackCooldown = 0;
-                healthManager.DamagePlayer(10);
+                healthManager.DamageTarget(hit.transform.gameObject.tag, 10);
 
             }
 

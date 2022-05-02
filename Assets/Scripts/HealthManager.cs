@@ -12,34 +12,30 @@ public class HealthManager : MonoBehaviour
     public float regenRate = 1;
     public float maxPlayerHealth = 100;
     public float maxBaseHealth = 500;
-    private float playerHealth = 100;
-    private float baseHealth = 500;
 
+    private Dictionary<string, float> targetHealths = new Dictionary<string, float>();
+
+    void Start(){
+        targetHealths.Add("Player", maxPlayerHealth);
+        targetHealths.Add("Base", maxBaseHealth);
+    }
     void Update(){
 
-        playerHealth = Mathf.Clamp(playerHealth + regenRate * Time.deltaTime, 0 , maxPlayerHealth);
-        baseHealth = Mathf.Clamp(baseHealth + regenRate * Time.deltaTime, 0 , maxBaseHealth);
+        targetHealths["Player"] =  Mathf.Clamp(targetHealths["Player"] + regenRate * Time.deltaTime, 0 , maxPlayerHealth);
+        targetHealths["Base"] =  Mathf.Clamp(targetHealths["Base"] + regenRate * Time.deltaTime, 0 , maxPlayerHealth);
 
-    }
-    public void DamagePlayer(float damage){
-
-        playerHealth -= damage;
-        if (playerHealth <= 0){
-
-            //die
-            EndGame();
-
-        }
-
+        playerHealthSlider.value = targetHealths["Player"]/maxPlayerHealth;
+        baseHealthSlider.value = targetHealths["Base"]/maxBaseHealth;
+        
     }
 
-    public void DamageBase(float damage){
 
-        baseHealth -= damage;
-        if (baseHealth <= 0){
+    public void DamageTarget(string target, float damage){
 
-            //die
-            EndGame();
+        targetHealths[target] -= damage;
+        if (targetHealths[target] <= 0){
+
+            print("dEAD");
 
         }
 
