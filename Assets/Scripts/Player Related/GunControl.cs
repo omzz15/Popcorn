@@ -9,17 +9,18 @@ public class GunControl : MonoBehaviour
     private ParticleSystem particleSource;
     private Animator animator;
 
+    public int shootDist = 10;
+
     void Start(){
 
         audioSource = GetComponent<AudioSource>();
         particleSource = gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
-        head = GetComponentInParent<Transform>();
+        head = transform.parent.GetComponent<Transform>();
         animator = GetComponent<Animator>();
 
     }
     void Update()
     {
-        Debug.DrawRay(head.position, transform.forward);
         //shoot
         if (Input.GetMouseButtonDown(0)){
 
@@ -29,7 +30,7 @@ public class GunControl : MonoBehaviour
             animator.Play("PistolShoot");
 
             RaycastHit hit;
-            if (Physics.Raycast(head.position, transform.right, out hit)){
+            if (Physics.Raycast(head.position, transform.right, out hit, shootDist)){
 
                 if (hit.transform.gameObject.tag == "enemy") {
 

@@ -11,11 +11,11 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float agrowRange = 10;
     [SerializeField] private float attackRange = 1;
-    [SerializeField] private GameObject particleSystem;
+    [SerializeField] private GameObject particles;
     private NavMeshAgent navMeshAgent;
     private Transform player;
     private Transform baseCore;
-    private HealthManager healthManager;
+    private GameObject gameManager;
     private RaycastHit hit;
     private float attackCooldown;
     void Start()
@@ -23,7 +23,7 @@ public class BasicEnemy : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         baseCore = GameObject.FindWithTag("baseCore").GetComponent<Transform>();
-        healthManager = GameObject.FindWithTag("GameManager").GetComponent<Transform>().GetComponent<HealthManager>();
+        gameManager = GameObject.FindWithTag("GameManager");
         navMeshAgent.speed = speed;
     }
     void Update()
@@ -52,7 +52,7 @@ public class BasicEnemy : MonoBehaviour
             if (attackCooldown > 1 && Physics.Raycast(transform.position + Vector3.up*1.5f, transform.forward, out hit,  attackRange*2, layerMask)){
 
                 attackCooldown = 0;
-                healthManager.DamageTarget(hit.transform.gameObject.tag, 10);
+                gameManager.GetComponent<HealthManager>().DamageTarget(hit.transform.gameObject.tag, 10);
 
             }
 
@@ -68,7 +68,12 @@ public class BasicEnemy : MonoBehaviour
 
         if (health <= 0){
 
-            Instantiate(particleSystem, transform.position, Quaternion.identity);
+            gameManager.GetComponent<SpawnEnemies>().EnemyDeath();
+
+            //DRAMA
+            GameObject deathParticles = Instantiate(particles, transform.position, Quaternion.identity);
+            Instantiate(deathParticles);
+            Destroy(deathParticles, 1);
             Destroy(gameObject);
 
         }
