@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using TMPro;
 
 public class SpawnEnemies : MonoBehaviour
 {
     [SerializeField] private Transform[] spawnPositions;
     [SerializeField] private GameObject enemy1;
+    [SerializeField] private TextMeshProUGUI nightCount;
     private int level = 1;
     private int enemyCount = 3;
     private System.Random rand = new System.Random();
@@ -30,6 +31,8 @@ public class SpawnEnemies : MonoBehaviour
     }
 
     void NewLevel(){
+
+        nightCount.text = "Night: " + level;
 
         //pls made this more robust in the future Om or Mari
         for (int i = 0 ; i < level * 3 ; i++){

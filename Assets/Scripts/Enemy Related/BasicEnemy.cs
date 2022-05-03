@@ -70,10 +70,7 @@ public class BasicEnemy : MonoBehaviour
 
             gameManager.GetComponent<SpawnEnemies>().EnemyDeath();
 
-            //DRAMA
-            GameObject deathParticles = Instantiate(particles, transform.position, Quaternion.identity);
-            Instantiate(deathParticles);
-            Destroy(deathParticles, 1);
+            Instantiate(particles, transform.position, Quaternion.identity);
             Destroy(gameObject);
 
         }
