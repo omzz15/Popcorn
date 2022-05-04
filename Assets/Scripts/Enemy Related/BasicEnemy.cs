@@ -17,10 +17,12 @@ public class BasicEnemy : MonoBehaviour
     private Transform baseCore;
     private GameObject gameManager;
     private RaycastHit hit;
+    [SerializeField] private Animator attackAnimator;
     private float attackCooldown;
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         baseCore = GameObject.FindWithTag("baseCore").GetComponent<Transform>();
         gameManager = GameObject.FindWithTag("GameManager");
@@ -47,6 +49,10 @@ public class BasicEnemy : MonoBehaviour
         if (playerDist < attackRange || baseCoreDist < attackRange){
 
             navMeshAgent.SetDestination(transform.position);
+
+            if (attackAnimator != null){
+                attackAnimator.Play("attack");
+            }
 
             Debug.DrawRay(transform.position+ Vector3.up*1.5f, transform.forward);
             if (attackCooldown > 1 && Physics.Raycast(transform.position + Vector3.up*1.5f, transform.forward, out hit,  attackRange*2, layerMask)){
