@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6923744094005974809}
   - component: {fileID: 5570077403461523787}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Gun 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4bf63a9d79b6c42a05090ae1082abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosOffset: {x: 10, y: 10, z: 10}
-  playerRotOffset: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
+  playerPosOffset: {x: 10, y: 20, z: 10}
+  playerRotOffset: {x: 0, y: 0, z: 0, w: 1}
   gunTip: {fileID: 0}
   shellEject: {fileID: 0}
   bullet: {fileID: 0}

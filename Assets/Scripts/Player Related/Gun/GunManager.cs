@@ -15,6 +15,7 @@ public class GunManager : MonoBehaviour
     void Start()
     {
         loadGunFromHand(0);
+        loadGunFromHand(1);
     }
 
     // Update is called once per frame
@@ -31,11 +32,17 @@ public class GunManager : MonoBehaviour
         loadGun(gunsInHand[slot]);
     }
 
-    private void loadGun(GameObject gun) {
-        this.gun = gun;
-        gunScript = gun.GetComponent<Gun>();
+    private void destroyGun(bool resetScript)
+    {
+        if (gun == null) return;
+        Destroy(gun);
+        if(resetScript) gunScript = null;
+    }
 
-        Instantiate(gun, gunScript.playerPosOffset, gunScript.playerRotOffset, playerTransform);
+    private void loadGun(GameObject gun) {
+        gunScript = gun.GetComponent<Gun>();
+        destroyGun(false);
+        this.gun = Instantiate(gun, playerTransform.position + gunScript.playerPosOffset, playerTransform.rotation * gunScript.playerRotOffset, playerTransform);
     }
 
     private void loadGun(int slot) {
