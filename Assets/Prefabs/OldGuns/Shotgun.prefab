@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8319098254532300383}
   - component: {fileID: 4956371807258259801}
+  - component: {fileID: -1453999093127776586}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -220,3 +221,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-1453999093127776586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8662831549924250853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4bf63a9d79b6c42a05090ae1082abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosOffset: {x: 0, y: 0, z: 0}
+  playerRotOffset: {x: 0, y: 0, z: 0, w: 0}
+  zoomingPlayerPosOffset: {x: 0, y: 0, z: 0}
+  zoomingPlayerRotOffset: {x: 0, y: 0, z: 0, w: 0}
+  flash: {fileID: 0}
+  recoil: {fileID: 4956371807258259801}
+  noise: {fileID: 0}
+  automatic: 0
+  spreadAngle: {x: 0, y: 0}
+  bulletsPerShot: 0
+  bulletDamage: 0
+  currentBullets: 0
+  maxBullets: 0
+  reloadTime: 0
+  reloadWaitTime: 0
+  zoomMagnification: 0
+  crosshairMagnification: 0
+  zoomSpreadDecrese: {x: 0, y: 0}
+  zoomSensitivityDivider: 0
+  zoomSpeedMultiplyer: 0
+  maxDistance: 0
