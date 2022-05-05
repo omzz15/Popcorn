@@ -63,6 +63,7 @@ public class Gun : MonoBehaviour
         setScoping();
         reload();
         shoot();
+        Debug.Log(currentBullets);
     }
 
     private void updateTimes() {
@@ -128,7 +129,7 @@ public class Gun : MonoBehaviour
                     if (hit.transform.gameObject.tag == "enemy")
                     {
 
-                        hit.transform.gameObject.GetComponent<BasicEnemy>().TakeDamage(10);
+                        hit.transform.gameObject.GetComponent<BasicEnemy>().TakeDamage(bulletDamage);
 
                     }
 

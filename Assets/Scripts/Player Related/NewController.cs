@@ -25,7 +25,7 @@ public class NewController : MonoBehaviour
 
 
 
-    private float sprint;
+    private float sprint = 1;
 
     Vector3 velocity = Vector3.zero;
     void Awake()
