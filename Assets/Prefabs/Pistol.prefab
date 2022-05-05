@@ -217,12 +217,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosOffset: {x: 0.63, y: -0.26, z: 0.45}
   playerRotOffset: {x: 0, y: 0, z: 0, w: 0}
-  zoomingPlayerPosOffset: {x: 0.63, y: -0.26, z: 0.45}
+  zoomingPlayerPosOffset: {x: 0.05, y: -0.37, z: 0.45}
   zoomingPlayerRotOffset: {x: 0, y: 0, z: 0, w: 0}
   flash: {fileID: 476905526381433065}
   recoil: {fileID: 6011943432933974393}
   noise: {fileID: 6011943432933974395}
-  automatic: 1
+  automatic: 0
   spreadAngle: {x: 10, y: 10}
   bulletsPerShot: 1
   bulletDamage: 10
