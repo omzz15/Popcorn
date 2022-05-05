@@ -16,7 +16,8 @@ public class ActionManager
     public static readonly string k_OnGameDeactivate = "on game deactivate";
     public static readonly string k_WhileGameDeactive = "while game deactive";
     public static readonly string k_OnStart = "on start";
-    public static readonly string k_OnUpdate = "on update"; 
+    public static readonly string k_OnUpdate = "on update";
+    //public static readonly string k_OnGunChange = "on gun change";
 
     //variables
     Dictionary<string, Actions> allActions = new Dictionary<string, Actions>();

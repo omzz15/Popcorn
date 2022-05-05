@@ -4,47 +4,64 @@ using UnityEngine;
 
 public class GunManager : MonoBehaviour
 {
-    public Transform playerTransform;
+    public Transform cameraTransform;
     public GameObject[] guns = new GameObject[1];
-    public int[] gunsInHand = new int[1];
 
+    private int currentGun = -1;
     private GameObject gun;
-    private Gun gunScript;
+
+    private bool canLoadGun = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        loadGunFromHand(0);
+        loadGun(0);
+
+        GameController.GetActionManager().AddAction(ActionManager.k_OnGameDeactivate, () => { canLoadGun = false; });
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (canLoadGun)
+        {
+            for (int i = 48; i < 58; i++)
+            {
+                int num = i - 48;
+                if (Input.GetKey(((char)i).ToString()))
+                {
+                    if (num == 0)
+                    {
+                        destroyGun();
+                    }
+                    else if (num - 1 < guns.Length)
+                    {
+                        loadGun(num - 1);
+                    }
+                }
+            }
+        }
+        else
+            destroyGun();
     }
 
-    private bool shootKeyPressed() {
-        return (Input.GetButtonDown("shoot") || (gunScript.automatic && Input.GetButton("shoot")));
-    }
+   
 
-    public void loadGunFromHand(int slot) {
-        loadGun(gunsInHand[slot]);
+    public void destroyGun()
+    {
+        //if (gun == null) return;
+        Destroy(gun);
+        currentGun = -1;
     }
 
     private void loadGun(GameObject gun) {
-        this.gun = gun;
-        gunScript = gun.GetComponent<Gun>();
-
-        Instantiate(gun, gunScript.playerPosOffset, gunScript.playerRotOffset, playerTransform);
+        destroyGun();
+        this.gun = Instantiate(gun, cameraTransform);
     }
 
-    private void loadGun(int slot) {
+    public void loadGun(int slot) {
+        if (currentGun == slot) return;
         loadGun(guns[slot]);
+        currentGun = slot;
     }
-
-    /*
-    public void addGun(GameObject gun, int slot) {
-        guns[slot] = gun;
-    }
-    */
 }

@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4bf63a9d79b6c42a05090ae1082abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosOffset: {x: 0, y: 1, z: 0}
+  playerPosOffset: {x: 10, y: 10, z: 10}
   playerRotOffset: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
   gunTip: {fileID: 0}
   shellEject: {fileID: 0}
@@ -118,7 +118,6 @@ MonoBehaviour:
   shell: {fileID: 0}
   flash: {fileID: 0}
   noise: {fileID: 0}
-  manager: {fileID: 0}
   automatic: 0
   spreadAngle: {x: 0, y: 0}
   bulletsPerSec: 0

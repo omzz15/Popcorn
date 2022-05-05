@@ -14,12 +14,24 @@ public class NewController : MonoBehaviour
     [SerializeField] private Transform[] headPositions;
     public float playerSpeed = 4f;
     public float rotSpeed = 0.3f;
-    private float sprint;
+
+    [Space]
+    [Header("Run")]
+    public float runSpeedMultiplier = 2;
+
+    [Space]
+    [Header("Crouch")]
+    public float crouchSpeedMultiplier = 0.5f;
+
+
+
+    private float sprint = 1;
 
     Vector3 velocity = Vector3.zero;
-    void Start()
+    void Awake()
     {
         controller = GetComponent<CharacterController>();
+        DefineActions();
     }
 
     // Update is called once per frame
@@ -31,23 +43,8 @@ public class NewController : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(0,  rotate, 0);
 
-        //Is sprinting?
-        if (Input.GetKey(KeyCode.LeftShift)){
-            sprint = 2;
-        }
-        else 
-        {
-            sprint = 1;
-        }
-        //Is Crouching?
-        if (Input.GetKey(KeyCode.LeftControl)){
-            head.position = headPositions[1].position;
-            sprint = 0.5f;
-        }
-        else 
-        {
-            head.position = headPositions[0].position;
-        }
+        setCrouch();
+        SetRun();
 
         //Player Movement
         Vector3 move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
@@ -58,8 +55,51 @@ public class NewController : MonoBehaviour
             velocity.y += gravity * Time.deltaTime * Time.deltaTime /2;
 
         }
+
         controller.Move(move * Time.deltaTime * playerSpeed * sprint + velocity);
+    }
 
+    void SetRun()
+    {
+        if (Input.GetButtonDown("Run"))
+        {
+            Info.SetRunning(true, true);
+        }
+        if (Input.GetButtonUp("Run"))
+        {
+            Info.SetRunning(false, true);
+        }
+    }
 
+    void setCrouch()
+    {
+        if (Input.GetButtonDown("Crouch"))
+            Info.SetCrouching(true, true);
+        else if (Input.GetButtonUp("Crouch"))
+            Info.SetCrouching(false, false);
+    }
+
+    private void DefineActions() {
+        GameController.GetActionManager().AddAction(ActionManager.k_OnRun, () => {
+            sprint = runSpeedMultiplier;
+        });
+        GameController.GetActionManager().AddAction(ActionManager.k_OnUnrun, () =>
+        {
+            sprint = 1;
+        });
+        GameController.GetActionManager().AddAction(ActionManager.k_OnCrouch, () => {
+            sprint = crouchSpeedMultiplier;
+            head.position = headPositions[1].position;
+        });
+        GameController.GetActionManager().AddAction(ActionManager.k_OnUncrouch, () => {
+            sprint = 1;
+            head.position = headPositions[0].position;
+        });
+        GameController.GetActionManager().AddAction(ActionManager.k_OnScoping, () => {
+            sprint = Info.currentGun.zoomSpeedMultiplyer;
+        });
+        GameController.GetActionManager().AddAction(ActionManager.k_OnUnscoping, () => {
+            sprint = 1;
+        });
     }
 }

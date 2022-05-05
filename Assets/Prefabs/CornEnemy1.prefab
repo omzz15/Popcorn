@@ -61,14 +61,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32fde5cb5fe8a348bb7b3d0b7684701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 10
   layerMask:
     serializedVersion: 2
     m_Bits: 128
   speed: 2
   agrowRange: 10
   attackRange: 2
-  particles: {fileID: 4794043405585894037, guid: 37138c0c33167b04fa1fb90b7f5a794f, type: 3}
+  particles: {fileID: 4681597231905342981, guid: 021e53931c0df02468297bb8502dbf98, type: 3}
+  attackAnimator: {fileID: 0}
 --- !u!195 &2012559197676881635
 NavMeshAgent:
   m_ObjectHideFlags: 0

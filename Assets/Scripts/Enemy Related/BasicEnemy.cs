@@ -17,10 +17,12 @@ public class BasicEnemy : MonoBehaviour
     private Transform baseCore;
     private GameObject gameManager;
     private RaycastHit hit;
+    [SerializeField] private Animator attackAnimator;
     private float attackCooldown;
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         baseCore = GameObject.FindWithTag("baseCore").GetComponent<Transform>();
         gameManager = GameObject.FindWithTag("GameManager");
@@ -48,8 +50,11 @@ public class BasicEnemy : MonoBehaviour
 
             navMeshAgent.SetDestination(transform.position);
 
-            Debug.DrawRay(transform.position+ Vector3.up*1.5f, transform.forward);
-            if (attackCooldown > 1 && Physics.Raycast(transform.position + Vector3.up*1.5f, transform.forward, out hit,  attackRange*2, layerMask)){
+            if (attackAnimator != null && attackAnimator.GetCurrentAnimatorStateInfo(0).IsName("Empty")){
+                attackAnimator.Play("attack");
+            }
+
+            if (attackCooldown > 1 && Physics.Raycast(transform.position + Vector3.up/2, transform.forward, out hit,  attackRange*2, layerMask)){
 
                 attackCooldown = 0;
                 gameManager.GetComponent<HealthManager>().DamageTarget(hit.transform.gameObject.tag, 10);
@@ -65,13 +70,13 @@ public class BasicEnemy : MonoBehaviour
     public void TakeDamage (float damage){
 
         health -= damage;
-
         if (health <= 0){
 
             gameManager.GetComponent<SpawnEnemies>().EnemyDeath();
 
-            Instantiate(particles, transform.position, Quaternion.identity);
+            Instantiate(particles, transform.position, transform.rotation);
             Destroy(gameObject);
+            gameObject.SetActive(false);
 
         }
 

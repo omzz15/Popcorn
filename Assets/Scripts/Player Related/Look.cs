@@ -11,11 +11,13 @@ public class Look : MonoBehaviour
     public float baseFOV;
 
     float xRotation = 0f;
+    private Camera camera;
 
     void Awake()
     {
         DefineActions();
-        gameObject.GetComponent<Camera>().fieldOfView = baseFOV;
+        camera = gameObject.GetComponent<Camera>();
+        camera.fieldOfView = baseFOV;
     }
 
     void Run()
@@ -56,6 +58,15 @@ public class Look : MonoBehaviour
         GameController.GetActionManager().AddAction(ActionManager.k_WhileGameDeactive, () =>{
             if (Input.GetMouseButton(0))
                 GameController.ActiveGame();
+        });
+        GameController.GetActionManager().AddAction(ActionManager.k_OnScoping, () =>
+        {
+            camera.fieldOfView /= Info.currentGun.zoomMagnification;
+            mouseSensitivity /= Info.currentGun.zoomSensitivityDivider;
+        });
+        GameController.GetActionManager().AddAction(ActionManager.k_OnUnscoping, () => {
+            camera.fieldOfView = baseFOV;
+            mouseSensitivity *= Info.currentGun.zoomSensitivityDivider;
         });
     }
 }
