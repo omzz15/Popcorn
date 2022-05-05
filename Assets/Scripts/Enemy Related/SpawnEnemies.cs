@@ -8,6 +8,8 @@ public class SpawnEnemies : MonoBehaviour
 {
     [SerializeField] private Transform[] spawnPositions;
     [SerializeField] private GameObject enemy1;
+    [SerializeField] private GameObject enemy2;
+    [SerializeField] private GameObject enemy3;
     [SerializeField] private TextMeshProUGUI nightCount;
     private int level = 1;
     private int enemyCount = 3;
@@ -33,14 +35,26 @@ public class SpawnEnemies : MonoBehaviour
     void NewLevel(){
 
         nightCount.text = "Night: " + level;
-
-        //pls made this more robust in the future Om or Mari
-        for (int i = 0 ; i < level * 3 ; i++){
+        enemyCount = 0;
+        //lvl 1
+        for (int i = 0 ; i < level*2 + 3 ; i++){
 
             Instantiate(enemy1, spawnPositions[rand.Next(0, spawnPositions.Length)].position, Quaternion.identity);
+            enemyCount++;
 
         }
-        enemyCount = level * 3;
+        //lvl 2
+        for (int i = 0 ; i < level - 1 ; i++){
+
+            Instantiate(enemy2, spawnPositions[rand.Next(0, spawnPositions.Length)].position, Quaternion.identity);
+            enemyCount++;
+        }
+        //lvl 3
+        for (int i = 0 ; i < Math.Floor( (decimal)(level/5)) ; i++){
+
+            Instantiate(enemy3, spawnPositions[rand.Next(0, spawnPositions.Length)].position, Quaternion.identity);
+            enemyCount++;
+        }
 
     }
 }

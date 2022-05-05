@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class HealthManager : MonoBehaviour
 {
 
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject deathUI;
+    [SerializeField] private GameObject cam;
     [SerializeField] private Slider playerHealthSlider;
     [SerializeField] private Slider baseHealthSlider;
 
@@ -17,15 +20,15 @@ public class HealthManager : MonoBehaviour
 
     void Start(){
         targetHealths.Add("Player", maxPlayerHealth);
-        targetHealths.Add("Base", maxBaseHealth);
+        targetHealths.Add("baseCore", maxBaseHealth);
     }
     void Update(){
 
         targetHealths["Player"] =  Mathf.Clamp(targetHealths["Player"] + regenRate * Time.deltaTime, 0 , maxPlayerHealth);
-        targetHealths["Base"] =  Mathf.Clamp(targetHealths["Base"] + regenRate * Time.deltaTime, 0 , maxPlayerHealth);
+        targetHealths["baseCore"] =  Mathf.Clamp(targetHealths["baseCore"] + regenRate * Time.deltaTime, 0 , maxBaseHealth);
 
         playerHealthSlider.value = targetHealths["Player"]/maxPlayerHealth;
-        baseHealthSlider.value = targetHealths["Base"]/maxBaseHealth;
+        baseHealthSlider.value = targetHealths["baseCore"]/maxBaseHealth;
         
     }
 
@@ -35,7 +38,7 @@ public class HealthManager : MonoBehaviour
         targetHealths[target] -= damage;
         if (targetHealths[target] <= 0){
 
-            print("dEAD");
+            EndGame();
 
         }
 
@@ -43,7 +46,9 @@ public class HealthManager : MonoBehaviour
 
     void EndGame(){
 
-        print("dEAD");
+        Destroy(player);
+        Instantiate(cam, player.transform.position, player.transform.rotation);
+        deathUI.SetActive(true);
 
     }
 

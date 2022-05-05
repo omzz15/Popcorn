@@ -50,12 +50,11 @@ public class BasicEnemy : MonoBehaviour
 
             navMeshAgent.SetDestination(transform.position);
 
-            if (attackAnimator != null){
+            if (attackAnimator != null && attackAnimator.GetCurrentAnimatorStateInfo(0).IsName("Empty")){
                 attackAnimator.Play("attack");
             }
 
-            Debug.DrawRay(transform.position+ Vector3.up*1.5f, transform.forward);
-            if (attackCooldown > 1 && Physics.Raycast(transform.position + Vector3.up*1.5f, transform.forward, out hit,  attackRange*2, layerMask)){
+            if (attackCooldown > 1 && Physics.Raycast(transform.position + Vector3.up/2, transform.forward, out hit,  attackRange*2, layerMask)){
 
                 attackCooldown = 0;
                 gameManager.GetComponent<HealthManager>().DamageTarget(hit.transform.gameObject.tag, 10);

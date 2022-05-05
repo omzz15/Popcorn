@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 30775251391383701}
   - component: {fileID: 1880055266032501427}
   - component: {fileID: 8763527114915301728}
+  - component: {fileID: 6515651701486180340}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -166,6 +167,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &6515651701486180340
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165954146633843705}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4689cd768f9ed9e4d8262edd7b79c919, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9092704027751809031
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,10 +199,9 @@ GameObject:
   - component: {fileID: 8281750221024611222}
   - component: {fileID: 8281750221024611223}
   - component: {fileID: 8281750221024611221}
-  - component: {fileID: 4847646854497573477}
   m_Layer: 0
   m_Name: CornEnemy3
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,8 +214,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9092704027751809031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.564322, y: 5.109827, z: -18.046864}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 20.564322, y: 5.536, z: -18.015}
+  m_LocalScale: {x: 0.7197677, y: 0.7197677, z: 0.7197677}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 30775251391383701}
@@ -251,32 +271,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32fde5cb5fe8a348bb7b3d0b7684701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
+  health: 350
   layerMask:
     serializedVersion: 2
     m_Bits: 128
-  speed: 0
-  agrowRange: 10
-  attackRange: 1
+  speed: 5
+  agrowRange: 20
+  attackRange: 2
   particles: {fileID: 4681597231905342981, guid: 021e53931c0df02468297bb8502dbf98, type: 3}
-  attackAnimator: {fileID: 0}
---- !u!95 &4847646854497573477
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9092704027751809031}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4689cd768f9ed9e4d8262edd7b79c919, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  attackAnimator: {fileID: 6515651701486180340}
