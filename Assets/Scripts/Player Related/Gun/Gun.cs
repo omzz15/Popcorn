@@ -48,8 +48,24 @@ public class Gun : MonoBehaviour
     private float timeSinceLastShot;
     private float timeSinceLastReload;
 
+    private void Awake()
+    {
+        Info.currentGun = this;
+        transform.position = playerPosOffset;
+        transform.rotation = playerRotOffset;
+
+        defineActions();
+    }
+
     private void Update()
     {
+        updateTimes();
+        setScoping();
+        reload();
+        shoot();
+    }
+
+    private void updateTimes() {
         timeSinceLastReload += Time.deltaTime;
         timeSinceLastShot += Time.deltaTime;
     }
@@ -72,9 +88,9 @@ public class Gun : MonoBehaviour
         return recoil.GetCurrentAnimatorStateInfo(0).IsName("empty");
     }
 
-    private bool canShoot()
+    private bool shouldShoot()
     {
-        return currentBullets > 0 && doneShooting();
+        return currentBullets > 0 && doneShooting() && shootKeyPressed();
     }
 
     private bool canReload()
@@ -82,52 +98,34 @@ public class Gun : MonoBehaviour
         return (timeSinceLastShot >= reloadWaitTime && timeSinceLastReload >= reloadTime && currentBullets < maxBullets);
     }
 
+    private void setScoping() {
+        if (Input.GetKeyDown("Scope"))
+            Info.SetScoping(true, true);
+        else if (Input.GetKeyUp("Scope"))
+            Info.SetScoping(false, true);
+    }
+
+    private void reload() {
+        if (canReload()) {
+            currentBullets++;
+            resetTimeSinceLastRelaod();
+        }
+    }
+
     private void shoot() {
-        if (canShoot() && shootKeyPressed()) {
-            if (Info.isZooming)
+        if (shouldShoot()) {
+            for (int i = 0; i < bulletsPerShot; i++)
             {
-                spreadAngle.x = spreadAngle.x - zoomSpreadDecrese.x;
-                spreadAngle.y = spreadAngle.y - zoomSpreadDecrese.y;
-                if (!string.IsNullOrEmpty(GunInfo.gunTipName[GunInfo.gunNum])) gunTipPos = GunInfo.gunZoomPos[GunInfo.gunNum].Find(GunInfo.gunTipName[GunInfo.gunNum]);
-                else if (GunInfo.gunTipZoomStart[GunInfo.gunNum] != null) gunTipPos = GunInfo.gunTipZoomStart[GunInfo.gunNum];
-            }
-            else
-            {
-                spreadAngle.x = GunInfo.spreadAngle[GunInfo.gunNum].x;
-                spreadAngle.y = GunInfo.spreadAngle[GunInfo.gunNum].y;
-                if (!string.IsNullOrEmpty(GunInfo.gunTipName[GunInfo.gunNum])) gunTipPos = GunInfo.gunNormalPos[GunInfo.gunNum].transform.Find(GunInfo.gunTipName[GunInfo.gunNum]);
-                else if (GunInfo.gunTipStart[GunInfo.gunNum] != null) gunTipPos = GunInfo.gunTipStart[GunInfo.gunNum];
-            }
-            if (spreadAngle.x < 0) spreadAngle.x = 0;
-            if (spreadAngle.y < 0) spreadAngle.y = 0;
-
-            for (int i = 0; i < GunInfo.bulletsPerShot[GunInfo.gunNum]; i++)
-            {
-
-                Vector3 raycastDir;
-                Quaternion bulletRot = new Quaternion(0, 0, 0, 0);
+                Transform ray = gunTip;
 
                 float randX = Random.Range(-.005f * spreadAngle.y, .005f * spreadAngle.y);
                 float randY = Random.Range(-.005f * spreadAngle.x, .005f * spreadAngle.x);
 
-                if (gunTipPos != null)
-                {
-                    bulletRot.x = gunTipPos.rotation.x + randX;
-                    bulletRot.y = gunTipPos.rotation.y + randY;
-                    bulletRot.z = gunTipPos.rotation.z;
-                    bulletRot.w = gunTipPos.rotation.w;
-                }
+                
+                
+                Vector3 raycastDir = ray.forward;
 
-                Quaternion camWithRand = new Quaternion(mainCam.transform.rotation.x + randX, mainCam.transform.rotation.y + randY, mainCam.transform.rotation.z, mainCam.transform.rotation.w);
-
-                raycastDir = camWithRand * Vector3.forward;
-
-                if (i % 10 == 0 || i < 10)
-                {
-                    if (GunInfo.bulletTip[GunInfo.gunNum] != null && gunTipPos != null) Instantiate(GunInfo.bulletTip[GunInfo.gunNum], gunTipPos.position, bulletRot);
-                    else Debug.LogWarning("bullet tip has or more missing parts and can not load");
-                }
-                if (Physics.Raycast(mainCam.transform.position, raycastDir, out RaycastHit hit, GunInfo.force[GunInfo.gunNum]))
+                if (Physics.Raycast(gunTip,out RaycastHit hit, maxDistance))
                 {
                     if (debug) Debug.DrawRay(mainCam.transform.position, bulletRot * Vector3.forward, Color.yellow, 1);
                     if (hit.transform.CompareTag("Player")) GunInfo.numOfSelfBulletsHitPlayer++;
@@ -142,5 +140,21 @@ public class Gun : MonoBehaviour
             resetTimeSinceLastShot();
             currentBullets --;
         }
+    }
+
+    private void defineActions() {
+        GameController.GetActionManager().AddAction(ActionManager.k_OnScoping, () => {
+            transform.position = zoomingPlayerPosOffset;
+            transform.rotation = zoomingPlayerRotOffset;
+            spreadAngle.x -= zoomSpreadDecrese.x;
+            spreadAngle.y -= zoomSpreadDecrese.y;
+            
+        });
+        GameController.GetActionManager().AddAction(ActionManager.k_OnUnscoping, () => {
+            transform.position = playerPosOffset;
+            transform.rotation = playerRotOffset;
+            spreadAngle.x += zoomSpreadDecrese.x;
+            spreadAngle.y += zoomSpreadDecrese.y;
+        });
     }
 }

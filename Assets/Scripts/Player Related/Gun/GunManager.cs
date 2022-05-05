@@ -8,33 +8,44 @@ public class GunManager : MonoBehaviour
     public GameObject[] guns = new GameObject[1];
 
     private GameObject gun;
-    private Gun gunScript;
 
     // Start is called before the first frame update
     void Start()
     {
         loadGun(0);
-        loadGun(1);
     }
 
     // Update is called once per frame
     void Update()
     {
+        for (int i = 48; i < 58; i++)
+        {
+            int num = i - 48;
+            if (Input.GetKey(((char)i).ToString()))
+            {
+                if (num == 0)
+                {
+                    destroyGun();
+                }
+                else if (num - 1 < guns.Length)
+                {
+                    loadGun(num - 1);
+                }
+            }
+        }
     }
 
    
 
-    private void destroyGun(bool resetScript)
+    private void destroyGun()
     {
-        if (gun == null) return;
+        //if (gun == null) return;
         Destroy(gun);
-        if(resetScript) gunScript = null;
     }
 
     private void loadGun(GameObject gun) {
-        gunScript = gun.GetComponent<Gun>();
-        destroyGun(false);
-        this.gun = Instantiate(gun, playerTransform.position + gunScript.playerPosOffset, playerTransform.rotation * gunScript.playerRotOffset, playerTransform);
+        destroyGun();
+        this.gun = Instantiate(gun, playerTransform);
     }
 
     private void loadGun(int slot) {
