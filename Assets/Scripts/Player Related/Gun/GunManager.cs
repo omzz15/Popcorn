@@ -6,7 +6,6 @@ public class GunManager : MonoBehaviour
 {
     public Transform playerTransform;
     public GameObject[] guns = new GameObject[1];
-    public int[] gunsInHand = new int[1];
 
     private GameObject gun;
     private Gun gunScript;
@@ -14,23 +13,16 @@ public class GunManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        loadGunFromHand(0);
-        loadGunFromHand(1);
+        loadGun(0);
+        loadGun(1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-    private bool shootKeyPressed() {
-        return (Input.GetButtonDown("shoot") || (gunScript.automatic && Input.GetButton("shoot")));
-    }
-
-    public void loadGunFromHand(int slot) {
-        loadGun(gunsInHand[slot]);
-    }
+   
 
     private void destroyGun(bool resetScript)
     {
@@ -48,10 +40,4 @@ public class GunManager : MonoBehaviour
     private void loadGun(int slot) {
         loadGun(guns[slot]);
     }
-
-    /*
-    public void addGun(GameObject gun, int slot) {
-        guns[slot] = gun;
-    }
-    */
 }
