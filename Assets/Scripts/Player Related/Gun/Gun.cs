@@ -10,7 +10,7 @@ public class Gun : MonoBehaviour
     public Quaternion playerRotOffset;
     public Vector3 zoomingPlayerPosOffset;
     public Quaternion zoomingPlayerRotOffset;
-    public Transform gunTip;
+    public Transform playerHead;
     //public Transform shellEject;
 
     [Space]
@@ -116,27 +116,29 @@ public class Gun : MonoBehaviour
         if (shouldShoot()) {
             for (int i = 0; i < bulletsPerShot; i++)
             {
-                Transform ray = gunTip;
-
                 float randX = Random.Range(-.005f * spreadAngle.y, .005f * spreadAngle.y);
                 float randY = Random.Range(-.005f * spreadAngle.x, .005f * spreadAngle.x);
 
-                
-                
-                Vector3 raycastDir = ray.forward;
+                Vector3 spray = new Vector3(randX, randY, 0);
 
-                if (Physics.Raycast(gunTip,out RaycastHit hit, maxDistance))
+                RaycastHit hit;
+                if (Physics.Raycast(playerHead.position, transform.right + spray, out hit, maxDistance))
                 {
-                    if (debug) Debug.DrawRay(mainCam.transform.position, bulletRot * Vector3.forward, Color.yellow, 1);
-                    if (hit.transform.CompareTag("Player")) GunInfo.numOfSelfBulletsHitPlayer++;
-                    else if (hit.transform.CompareTag("Enemy") && GunInfo.bulletDamage[GunInfo.gunNum] > hit.transform.GetComponent<EnemyHealth>().bulletResistance) hit.transform.GetComponent<EnemyHealth>().amountOfDamageTaken += (GunInfo.bulletDamage[GunInfo.gunNum] - hit.transform.GetComponent<EnemyHealth>().bulletResistance);
-                    else if ((hit.transform.CompareTag("Obilisc") || hit.transform.CompareTag("Block")) && hit.transform.GetComponent<ObiliscHealthManager>().bulletProtection < GunInfo.bulletDamage[GunInfo.gunNum]) hit.transform.GetComponent<ObiliscHealthManager>().amountOfDamageTaken += GunInfo.bulletDamage[GunInfo.gunNum] - hit.transform.GetComponent<ObiliscHealthManager>().bulletProtection;
-                    if (debug) Debug.Log(hit.transform.tag);
+
+                    if (hit.transform.gameObject.tag == "enemy")
+                    {
+
+                        hit.transform.gameObject.GetComponent<BasicEnemy>().TakeDamage(10);
+
+                    }
+
                 }
             }
-            if (GunInfo.gunFlash[GunInfo.gunNum] != null && gunTipPos != null) Instantiate(GunInfo.gunFlash[GunInfo.gunNum], gunTipPos.position, gunTipPos.rotation);
-            else Debug.LogWarning("one or more parts is mising form gun flash so it was not loaded");
 
+            flash.Clear();
+            flash.Play();
+            recoil.Play("PistolShoot");
+            noise.Play();
             resetTimeSinceLastShot();
             currentBullets --;
         }
