@@ -51,8 +51,8 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         Info.currentGun = this;
-        transform.position = playerPosOffset;
-        transform.rotation = playerRotOffset;
+        transform.localPosition = playerPosOffset;
+        transform.localRotation = playerRotOffset;
 
         defineActions();
     }
@@ -81,12 +81,12 @@ public class Gun : MonoBehaviour
 
     private bool shootKeyPressed()
     {
-        return (Input.GetButtonDown("shoot") || (automatic && Input.GetButton("shoot")));
+        return (Input.GetButtonDown("Shoot") || (automatic && Input.GetButton("Shoot")));
     }
 
     private bool doneShooting()
     {
-        return recoil.GetCurrentAnimatorStateInfo(0).IsName("empty");
+        return !recoil.GetCurrentAnimatorStateInfo(0).IsName("PistolShoot");
     }
 
     private bool shouldShoot()
@@ -100,9 +100,9 @@ public class Gun : MonoBehaviour
     }
 
     private void setScoping() {
-        if (Input.GetKeyDown("Scope"))
+        if (Input.GetButtonDown("Scope"))
             Info.SetScoping(true, true);
-        else if (Input.GetKeyUp("Scope"))
+        else if (Input.GetButtonUp("Scope"))
             Info.SetScoping(false, true);
     }
 
@@ -147,15 +147,15 @@ public class Gun : MonoBehaviour
 
     private void defineActions() {
         GameController.GetActionManager().AddAction(ActionManager.k_OnScoping, () => {
-            transform.position = zoomingPlayerPosOffset;
-            transform.rotation = zoomingPlayerRotOffset;
+            transform.localPosition = zoomingPlayerPosOffset;
+            transform.localRotation = zoomingPlayerRotOffset;
             spreadAngle.x -= zoomSpreadDecrese.x;
             spreadAngle.y -= zoomSpreadDecrese.y;
             
         });
         GameController.GetActionManager().AddAction(ActionManager.k_OnUnscoping, () => {
-            transform.position = playerPosOffset;
-            transform.rotation = playerRotOffset;
+            transform.localPosition = playerPosOffset;
+            transform.localRotation = playerRotOffset;
             spreadAngle.x += zoomSpreadDecrese.x;
             spreadAngle.y += zoomSpreadDecrese.y;
         });

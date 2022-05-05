@@ -61,7 +61,7 @@ public class Look : MonoBehaviour
         });
         GameController.GetActionManager().AddAction(ActionManager.k_OnScoping, () =>
         {
-            camera.fieldOfView = baseFOV * Info.currentGun.zoomMagnification;
+            camera.fieldOfView /= Info.currentGun.zoomMagnification;
             mouseSensitivity /= Info.currentGun.zoomSensitivityDivider;
         });
         GameController.GetActionManager().AddAction(ActionManager.k_OnUnscoping, () => {
