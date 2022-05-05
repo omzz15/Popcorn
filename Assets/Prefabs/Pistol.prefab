@@ -219,18 +219,17 @@ MonoBehaviour:
   playerRotOffset: {x: 0, y: 0, z: 0, w: 0}
   zoomingPlayerPosOffset: {x: 0.63, y: -0.26, z: 0.45}
   zoomingPlayerRotOffset: {x: 0, y: 0, z: 0, w: 0}
-  playerHead: {fileID: 0}
   flash: {fileID: 476905526381433065}
   recoil: {fileID: 6011943432933974393}
   noise: {fileID: 6011943432933974395}
   automatic: 1
   spreadAngle: {x: 10, y: 10}
-  bulletsPerShot: 10
+  bulletsPerShot: 1
   bulletDamage: 10
   currentBullets: 10
   maxBullets: 20
-  reloadTime: 0
-  reloadWaitTime: 0
+  reloadTime: 0.5
+  reloadWaitTime: 1.5
   zoomMagnification: 2
   crosshairMagnification: 0
   zoomSpreadDecrese: {x: 6, y: 6}

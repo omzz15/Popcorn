@@ -89,7 +89,7 @@ public class Gun : MonoBehaviour
 
     private bool doneShooting()
     {
-        return !recoil.GetCurrentAnimatorStateInfo(0).IsName("PistolShoot");
+        return recoil.GetCurrentAnimatorStateInfo(0).IsName("Empty");
     }
 
     private bool shouldShoot()
