@@ -51,6 +51,7 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         Info.currentGun = this;
+        
         transform.localPosition = playerPosOffset;
         transform.localRotation = playerRotOffset;
 
