@@ -71,13 +71,13 @@ public class BasicEnemy : MonoBehaviour
     public void TakeDamage (float damage){
 
         health -= damage;
-
         if (health <= 0){
 
             gameManager.GetComponent<SpawnEnemies>().EnemyDeath();
 
             Instantiate(particles, transform.position, Quaternion.identity);
             Destroy(gameObject);
+            gameObject.SetActive(false);
 
         }
 
