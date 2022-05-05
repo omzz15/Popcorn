@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GunManager : MonoBehaviour
 {
-    public Transform playerTransform;
+    public Transform cameraTransform;
     public GameObject[] guns = new GameObject[1];
 
+    private int currentGun = -1;
     private GameObject gun;
 
     // Start is called before the first frame update
@@ -41,14 +42,17 @@ public class GunManager : MonoBehaviour
     {
         //if (gun == null) return;
         Destroy(gun);
+        currentGun = -1;
     }
 
     private void loadGun(GameObject gun) {
         destroyGun();
-        this.gun = Instantiate(gun, playerTransform);
+        this.gun = Instantiate(gun, cameraTransform);
     }
 
     private void loadGun(int slot) {
+        if (currentGun == slot) return;
         loadGun(guns[slot]);
+        currentGun = slot;
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8402300891743722044}
   - component: {fileID: 6016263113681530614}
   - component: {fileID: 2742812703779584151}
+  - component: {fileID: -9011766996170091894}
   m_Layer: 0
   m_Name: SMG
   m_TagString: Untagged
@@ -104,3 +105,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-9011766996170091894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223879923959746339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4bf63a9d79b6c42a05090ae1082abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosOffset: {x: 0, y: 0, z: 0}
+  playerRotOffset: {x: 0, y: 0, z: 0, w: 0}
+  zoomingPlayerPosOffset: {x: 0, y: 0, z: 0}
+  zoomingPlayerRotOffset: {x: 0, y: 0, z: 0, w: 0}
+  flash: {fileID: 0}
+  recoil: {fileID: 2742812703779584151}
+  noise: {fileID: 0}
+  automatic: 0
+  spreadAngle: {x: 0, y: 0}
+  bulletsPerShot: 0
+  bulletDamage: 0
+  currentBullets: 0
+  maxBullets: 0
+  reloadTime: 0
+  reloadWaitTime: 0
+  zoomMagnification: 0
+  crosshairMagnification: 0
+  zoomSpreadDecrese: {x: 0, y: 0}
+  zoomSensitivityDivider: 0
+  zoomSpeedMultiplyer: 0
+  maxDistance: 0

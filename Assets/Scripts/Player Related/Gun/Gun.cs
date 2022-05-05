@@ -10,8 +10,6 @@ public class Gun : MonoBehaviour
     public Quaternion playerRotOffset;
     public Vector3 zoomingPlayerPosOffset;
     public Quaternion zoomingPlayerRotOffset;
-    public Transform playerHead;
-    //public Transform shellEject;
 
     [Space]
     [Header("Objects")]
@@ -44,17 +42,22 @@ public class Gun : MonoBehaviour
     [Header("Bullet Info")]
     public float maxDistance;
 
-
+    private Transform cameraTransform;
     private float timeSinceLastShot;
     private float timeSinceLastReload;
 
     private void Awake()
     {
+        setVars();
+        defineActions();
+    }
+
+    private void setVars()
+    {
         Info.currentGun = this;
         transform.localPosition = playerPosOffset;
         transform.localRotation = playerRotOffset;
-
-        defineActions();
+        cameraTransform = transform.parent.transform;
     }
 
     private void Update()
@@ -63,7 +66,6 @@ public class Gun : MonoBehaviour
         setScoping();
         reload();
         shoot();
-        Debug.Log(currentBullets);
     }
 
     private void updateTimes() {
@@ -123,9 +125,10 @@ public class Gun : MonoBehaviour
                 Vector3 spray = new Vector3(randX, randY, 0);
 
                 RaycastHit hit;
-                if (Physics.Raycast(playerHead.position, transform.right + spray, out hit, maxDistance))
-                {
 
+                Debug.DrawRay(cameraTransform.position, transform.right + spray, Color.green, 10);
+                if (Physics.Raycast(cameraTransform.position, transform.right + spray, out hit, maxDistance))
+                {
                     if (hit.transform.gameObject.tag == "enemy")
                     {
 
