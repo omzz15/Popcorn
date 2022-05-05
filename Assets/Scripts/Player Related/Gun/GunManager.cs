@@ -10,35 +10,44 @@ public class GunManager : MonoBehaviour
     private int currentGun = -1;
     private GameObject gun;
 
+    private bool canLoadGun = true;
+
     // Start is called before the first frame update
     void Start()
     {
         loadGun(0);
+
+        GameController.GetActionManager().AddAction(ActionManager.k_OnGameDeactivate, () => { canLoadGun = false; });
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 48; i < 58; i++)
+        if (canLoadGun)
         {
-            int num = i - 48;
-            if (Input.GetKey(((char)i).ToString()))
+            for (int i = 48; i < 58; i++)
             {
-                if (num == 0)
+                int num = i - 48;
+                if (Input.GetKey(((char)i).ToString()))
                 {
-                    destroyGun();
-                }
-                else if (num - 1 < guns.Length)
-                {
-                    loadGun(num - 1);
+                    if (num == 0)
+                    {
+                        destroyGun();
+                    }
+                    else if (num - 1 < guns.Length)
+                    {
+                        loadGun(num - 1);
+                    }
                 }
             }
         }
+        else
+            destroyGun();
     }
 
    
 
-    private void destroyGun()
+    public void destroyGun()
     {
         //if (gun == null) return;
         Destroy(gun);
@@ -50,7 +59,7 @@ public class GunManager : MonoBehaviour
         this.gun = Instantiate(gun, cameraTransform);
     }
 
-    private void loadGun(int slot) {
+    public void loadGun(int slot) {
         if (currentGun == slot) return;
         loadGun(guns[slot]);
         currentGun = slot;
