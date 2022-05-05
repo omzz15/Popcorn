@@ -127,7 +127,7 @@ public class Gun : MonoBehaviour
 
                 RaycastHit hit;
 
-                Debug.DrawRay(cameraTransform.position, transform.right + spray, Color.green, 10);
+                //Debug.DrawRay(cameraTransform.position, transform.right + spray, Color.green, 10);
                 if (Physics.Raycast(cameraTransform.position, transform.right + spray, out hit, maxDistance))
                 {
                     if (hit.transform.gameObject.tag == "enemy")
@@ -140,10 +140,14 @@ public class Gun : MonoBehaviour
                 }
             }
 
-            flash.Clear();
-            flash.Play();
+            if (flash != null)
+            {
+                flash.Clear();
+                flash.Play();
+            }
             recoil.Play("PistolShoot");
-            noise.Play();
+            if(noise != null)
+                noise.Play();
             resetTimeSinceLastShot();
             currentBullets --;
         }
