@@ -55,6 +55,7 @@ public class Gun : MonoBehaviour
     private void setVars()
     {
         Info.currentGun = this;
+        
         transform.localPosition = playerPosOffset;
         transform.localRotation = playerRotOffset;
         cameraTransform = transform.parent.transform;
