@@ -75,7 +75,7 @@ public class BasicEnemy : MonoBehaviour
 
             gameManager.GetComponent<SpawnEnemies>().EnemyDeath();
 
-            Instantiate(particles, transform.position, Quaternion.identity);
+            Instantiate(particles, transform.position, transform.rotation);
             Destroy(gameObject);
             gameObject.SetActive(false);
 
