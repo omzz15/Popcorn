@@ -391,6 +391,8 @@ MonoBehaviour:
   cameraTransform: {fileID: 963194228}
   guns:
   - {fileID: 6894975169149851726, guid: af43609056c767c4e87960ec3f8e04a1, type: 3}
+  - {fileID: 8662831549924250853, guid: c939b806ca51e3b44ab318b6b3c6c74e, type: 3}
+  - {fileID: 5223879923959746339, guid: 5784cb96351c00148937cfa1ddb24f45, type: 3}
 --- !u!1 &203694187
 GameObject:
   m_ObjectHideFlags: 0
